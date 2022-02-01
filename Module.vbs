@@ -1,6 +1,4 @@
 sub getBaesick()
-  'Randomize Rnd()
-  
   TotalLen = Int(Range("B3:B3").Text)
   PassLen = Int(Range("C3:C3").Text)
   BaesickLen = Int(Range("D3:D3").Text)
@@ -9,14 +7,14 @@ sub getBaesick()
     MsgBox("가용 인원이 없습니다.")
   Else
     Do While 1
+      ' 자정으로부터 지난 초를 의미하는 Timer 값으로 seed 값 지정 (소수점 2번쨰 자리로 계속 바뀌는 값)
+      ' 직접 바꾸지 않으면 seed 값이 고정되어 있어 똑같은 결과가 나오므로 주기적으로 변경
+      Randomize Timer
+      
       ' randomRnd = Rnd()*1000 mod (TotalLen + 1) [1]
+      
       ' Int( ( upperbound - lowerbound + 1 ) * Rnd + lowerbound )
       randomRnd = Int((TotalLen) * Rnd() + 1) ' [2]
-      
-      ' 0이면 다시 뽑게하기 (0은 5번째 라인[Name]을 선택한다. 6번째 라인 이후에 있는 데이터들을 사용해야함)
-      if randomRnd = 0 Then
-        checkValue = 1
-      End if
       
       ' TotalArr 변수에서 랜덤으로 하나 선택
       randomValue = Range("B6:B" + Str(TotalLen + 5)).Item(randomRnd, 1)
