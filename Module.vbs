@@ -18,24 +18,24 @@ sub getBaesick()
       ' Int( ( upperbound - lowerbound + 1 ) * Rnd + lowerbound )
       randomRnd = Int((TotalLen) * Rnd() + 1) ' [2]
       
-      ' TotalArr 변수에서 랜덤으로 하나 선택
+      ' 이름 명단에서 랜덤으로 하나 선택
       randomValue = Range("B6:B" + Str(TotalLen + 5)).Item(randomRnd, 1)
       
       For i = 1 To PassLen
-        ' PassArr에 있는 이름인지 확인
+        ' 열외에 있는 이름인지 확인
         if Range("C6:C" + Str(PassLen + 5)).Item(i, 1) = randomValue Then
           checkValue = 1
         End if
       Next
       
       For i = 1 To BaesickLen
-        ' BaesickArr에 있는 이름인지 확인
+        ' 배식조 뽑힌 인원에 있는 이름인지 확인
         if Range("D6:D" + Str(BaesickLen + 5)).Item(i, 1) = randomValue Then
           checkValue = 1
         End if 
       Next
       
-      ' PassArr, BaesickArr에 없으면 출력
+      ' 둘 다 없으면 출력
       if checkValue = 0 Then
         With Range("H12:H12")
           .Value = randomValue
@@ -46,7 +46,7 @@ sub getBaesick()
         
         Range("D" + Str(6 + BaesickLen) + ":D" + Str(6 + BaesickLen)).Value = randomValue
           
-        ' 뽑힌 순서 확인 용도 (랜덤 난수 테스트용) - 필요 없는 기능이면 코드 앞에 rem 사용하면 된다.
+        ' 뽑힌 순서 확인 및 랜덤 난수 테스트
         Range("E" + Str(5 + randomRnd) + ":E" + Str(5 + randomRnd)).Value = BaesickLen + 1
         Exit Do
       End if
